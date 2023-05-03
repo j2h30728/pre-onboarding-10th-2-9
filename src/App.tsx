@@ -1,25 +1,19 @@
 import { useEffect, useState } from 'react';
 
-import getSearchedData from './api';
 import { SearchedData } from './@types';
-import { useDebounce, useInput } from './hooks';
+import { useCahingData, useDebounce, useInput } from './hooks';
 
 import * as S from './components/style';
 
 const App = () => {
   const { value: keyword, onChange, clear } = useInput('');
   const [searchedList, setSearchedList] = useState<Array<SearchedData>>();
-  const [error, setError] = useState<string>();
   const debouncedValue = useDebounce(keyword, 500);
 
   const searching = async () => {
-    const res = await getSearchedData(debouncedValue);
-    if (res.isSuccess && res.data) {
-      setError('');
-      setSearchedList(res.data);
-    }
-    if (!res.isSuccess) {
-      setError(res.message);
+    const seachedData = await useCahingData(debouncedValue);
+    if (seachedData) {
+      setSearchedList(seachedData);
     }
   };
 
@@ -38,12 +32,11 @@ const App = () => {
         <S.Button>검색</S.Button>
       </S.SearchWrapper>
       <S.SearchedList>
-        {searchedList
-          ? searchedList?.map((searched) => (
-              <S.SeachedData key={searched.id}>{searched.name}</S.SeachedData>
-            ))
-          : null}
-        {error && <S.SeachedData>{error}</S.SeachedData>}
+        {searchedList &&
+          searchedList?.map((searched) => (
+            <S.SeachedData key={searched.id}>{searched.name}</S.SeachedData>
+          ))}
+        {debouncedValue && searchedList?.length === 0 && <S.SeachedData>검색어 없음</S.SeachedData>}
       </S.SearchedList>
     </S.Container>
   );

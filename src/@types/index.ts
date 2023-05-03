@@ -12,3 +12,10 @@ interface APISuccess {
   data: Array<SearchedData>;
 }
 export type APIResponse = APIError | APISuccess;
+
+export interface CacheData {
+  [key: string]: {
+    data: Array<SearchedData>;
+    expiresAt: number;
+  };
+}
