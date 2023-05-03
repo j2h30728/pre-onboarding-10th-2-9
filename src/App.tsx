@@ -5,6 +5,7 @@ import { useCahingData, useDebounce, useInput } from './hooks';
 
 import * as S from './components/style';
 import SeachInput from './components/SeachInput';
+import Svg from './components/Svg';
 
 const App = () => {
   const { value: keyword, onChange, clear } = useInput('');
@@ -57,6 +58,7 @@ const App = () => {
       />
       {debouncedValue && searchedList && (
         <S.SearchedList>
+          <S.SubTitle>추천 검색어</S.SubTitle>
           {searchedList?.length === 0 && <S.SeachedData>검색어 없음</S.SeachedData>}
           {searchedList?.map((data, idx) => (
             <S.SeachedData
@@ -67,6 +69,7 @@ const App = () => {
               tabIndex={idx}
               onKeyDown={(e) => handleDataKeyDown(e, idx)}
             >
+              <Svg />
               {data.name}
             </S.SeachedData>
           ))}

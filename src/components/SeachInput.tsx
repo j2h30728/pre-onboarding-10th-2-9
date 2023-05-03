@@ -1,5 +1,6 @@
 import { RefObject } from 'react';
 import * as S from './style';
+import Svg from './Svg';
 
 interface SeachInputProps {
   inputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -24,8 +25,10 @@ const SeachInput = ({
         onChange={inputChange}
         value={inputValue}
       />
-      <S.Button onClick={inpuClear}>X</S.Button>
-      <S.Button>검색</S.Button>
+      <S.ClearButton onClick={inpuClear}>X</S.ClearButton>
+      <S.SearchingButton>
+        <Svg />
+      </S.SearchingButton>
     </S.SearchWrapper>
   );
 };
