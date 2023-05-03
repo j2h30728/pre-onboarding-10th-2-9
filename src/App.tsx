@@ -1,17 +1,19 @@
 import { useEffect, useState } from 'react';
 
-import * as S from './components/style';
-import useInput from './hooks/useInput';
 import getSearchedData from './api';
 import { SearchedData } from './@types';
+import { useDebounce, useInput } from './hooks';
+
+import * as S from './components/style';
 
 const App = () => {
   const { value: keyword, onChange, clear } = useInput('');
   const [searchedList, setSearchedList] = useState<Array<SearchedData>>();
   const [error, setError] = useState<string>();
+  const debouncedValue = useDebounce(keyword, 500);
 
   const searching = async () => {
-    const res = await getSearchedData(keyword);
+    const res = await getSearchedData(debouncedValue);
     if (res.isSuccess && res.data) {
       setError('');
       setSearchedList(res.data);
@@ -23,7 +25,7 @@ const App = () => {
 
   useEffect(() => {
     searching();
-  }, [keyword]);
+  }, [debouncedValue]);
 
   return (
     <S.Container>

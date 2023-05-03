@@ -4,6 +4,8 @@ import BASE_URL from './BASE_URL';
 const getSearchedData = async (keyword: string): Promise<APIResponse> => {
   try {
     if (keyword) {
+      // eslint-disable-next-line no-console
+      console.info('calling api');
       const res = await fetch(`${BASE_URL}/?name=${keyword}`, {
         method: 'GET',
         headers: {
