@@ -27,11 +27,12 @@ export const Button = styled.button`
   width: 40px;
   height: 40px;
 `;
-export const SearchedList = styled.ul`
+export const SearchedList = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
   justify-content: start;
 `;
-export const SeachedData = styled.li`
-  list-style: none;
-  margin-bottom: 10px;
+export const SeachedData = styled.div`
+  margin-top: 10px;
 `;
