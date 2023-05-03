@@ -6,6 +6,7 @@ import { useCahingData, useDebounce, useInput } from './hooks';
 import * as S from './components/style';
 import SeachInput from './components/SeachInput';
 import Svg from './components/Svg';
+import { ARROWDON_CODE, ARROWUP_CODE } from './utils/constant';
 
 const App = () => {
   const { value: keyword, onChange, clear } = useInput('');
@@ -27,10 +28,10 @@ const App = () => {
   }, [debouncedValue]);
 
   const handleDataKeyDown = (event: React.KeyboardEvent, idx: number) => {
-    if (event.code === 'ArrowDown') {
+    if (event.code === ARROWDON_CODE) {
       filteredSearchDataRef.current[idx + 1]?.focus();
     }
-    if (event.code === 'ArrowUp') {
+    if (event.code === ARROWUP_CODE) {
       if (idx === 0) {
         inputRef.current?.focus();
       }
@@ -59,8 +60,8 @@ const App = () => {
       {debouncedValue && searchedList && (
         <S.SearchedList>
           <S.SubTitle>추천 검색어</S.SubTitle>
-          {searchedList?.length === 0 && <S.SeachedData>검색어 없음</S.SeachedData>}
-          {searchedList?.map((data, idx) => (
+          {searchedList.length === 0 && <S.SeachedData>검색어 없음</S.SeachedData>}
+          {searchedList.map((data, idx) => (
             <S.SeachedData
               key={data.id}
               ref={(el) => {

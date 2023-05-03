@@ -1,5 +1,5 @@
 import { APIResponse } from '../@types';
-import BASE_URL from './BASE_URL';
+import { BASE_URL } from '../utils/constant';
 
 const getSearchedData = async (keyword: string): Promise<APIResponse> => {
   try {

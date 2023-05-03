@@ -29,6 +29,8 @@ export const Input = styled.input`
   background-color: transparent;
   font-size: 18px;
   font-weight: 600;
+  border-bottom: 4px solid transparent;
+
   &:focus {
     outline: none;
     border-bottom: 4px solid rgb(52, 121, 225);

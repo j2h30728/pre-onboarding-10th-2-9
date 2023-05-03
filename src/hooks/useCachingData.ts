@@ -1,9 +1,9 @@
 import { CacheData, SearchedData } from '../@types';
 import getSearchedData from '../api';
+import { EXPIRE_TIME } from '../utils/constant';
 import useCheckExpriesAt from './useCheckExpriesAt';
 
 let cacheData: CacheData = {};
-
 const useCahingData = async (key: string): Promise<Array<SearchedData>> => {
   if (Object.keys(cacheData).length > 1) {
     const checkedCacheData = useCheckExpriesAt(cacheData);
@@ -16,7 +16,7 @@ const useCahingData = async (key: string): Promise<Array<SearchedData>> => {
   if (res.isSuccess) {
     cacheData[key] = {
       data: res.data,
-      expiresAt: Date.now() + 1000 * 60 * 5,
+      expiresAt: EXPIRE_TIME,
     };
     return cacheData[key].data;
   }
